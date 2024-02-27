@@ -23,24 +23,33 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @Entity
 public class Session {
-	
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long sessionId;
-	
+
 	@NotEmpty
 	private String title;
-	
+
 	private String place;
-	
+
 	private String link;
-	
+
 	@Enumerated(EnumType.STRING)
 	private DeckType type;
-	
+
 	@OneToMany
 	@JoinColumn(name = "session_fk")
-	private List <Member> members;
+	private List<Member> members;
+
+	@OneToMany(fetch = FetchType.EAGER)
+	@JoinColumn(name = "user_story_fk")
+	private List<Story> userStory;
 	
+	/*
+	 * @OneToMany(fetch = FetchType.EAGER)
+	 * 
+	 * @JoinColumn(name = "votes_fk") private List<Vote> vote;
+	 */
 
 }

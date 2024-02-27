@@ -75,28 +75,23 @@ public class SessionServiceImpl implements SessionService {
 	public Session joinTheSessionBySessionLink(long memberId, String sessionLink) throws Exception {
 		Session s = sessionRepo.getSessionByLink(sessionLink)
 				.orElseThrow(() -> new ResourceNotFoundException("Requested Session Not Found"));
+
 		Member member = memberRepo.findById(memberId)
 				.orElseThrow(() -> new ResourceNotFoundException("Requested Member is Not Found"));
 
-		if (s.getMembers().isEmpty()) {
-			s.getMembers().add(member);
-			s.setMembers(s.getMembers());
+		List<Member> list = s.getMembers();
+		if (list.isEmpty()) {
+			list.add(member);
 			logger.info("Joining member by Member id and Session id...........");
 		} else {
-
-			for (Member m : s.getMembers()) {
-				if (m.getName().equalsIgnoreCase(member.getName())) {
-					throw new Exception("Member : " + member.getName() + " Already Exists in the Session");
-				}else {
-					s.getMembers().add(member);
-					s.setMembers(s.getMembers());
-					logger.info("Joining member by Member id and Session id...........");
-					
-				}
+			if (list.stream().anyMatch(a -> a.getMemberId() == memberId)) {
+				throw new Exception("Member : " + " Already Exists in the Session");
+			} else {
+				list.add(member);
+				logger.info("Joining member by Member id and Session id...........");
 			}
 		}
-		System.out.println(s);
-
+		s.setMembers(list);
 		return sessionRepo.save(s);
 	}
 

@@ -2,13 +2,12 @@ package com.entity;
 
 import java.util.List;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.OneToMany;
 
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
@@ -24,12 +23,12 @@ import lombok.ToString;
 @ToString
 @EqualsAndHashCode
 @Entity
-public class Member {
-	@Id 
+public class UserVote {
+
+	@Id
+	@Column
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private long memberId;
-	private String name;
-	private String password;
-	
+	private long vote_Id;
+	private String value;
 	
 }
