@@ -44,16 +44,16 @@ public class StoryController {
 		return ResponseEntity.ok(addStory);
 	}
 
-	@PutMapping(path = "/updateStory/{id}")
-	public ResponseEntity<Story> updateStory(@PathVariable(value = "id") long id, @RequestBody Story u)
+	@PutMapping(path = "/updateStory/{storyid}")
+	public ResponseEntity<Story> updateStory(@PathVariable(value = "storyid") long storyid, @RequestBody Story s)
 			throws ResourceNotFoundException {
-		Story udatestory = storyService.updateStory(id, u);
+		Story udatestory = storyService.updateStory(storyid, s);
 		return ResponseEntity.ok(udatestory);
 	}
 
-	@DeleteMapping(path = "/deleteStory/{id}")
-	public ResponseEntity<String> deleteStory(@PathVariable long id) throws ResourceNotFoundException {
-		String s = storyService.deleteStory(id);
+	@DeleteMapping(path = "/deleteStory/{storyid}")
+	public ResponseEntity<String> deleteStory(@PathVariable long storyid) throws ResourceNotFoundException {
+		String s = storyService.deleteStory(storyid);
 		return ResponseEntity.ok(s);
 	}	
 

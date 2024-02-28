@@ -8,6 +8,8 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToMany;
 
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
@@ -30,5 +32,9 @@ public class UserVote {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long vote_Id;
 	private String value;
+	
+	@OneToMany
+	@JoinColumn(name = "session_fk")
+	private List<Member> members;
 	
 }
